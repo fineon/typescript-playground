@@ -8,7 +8,7 @@ interface dictionary {
     lettuce: string;
 }
 
-function doSearch(db:dictionary,key:string) {
+function doSearch(db:dictionary,key:string):string[] {
     let dictArr:string[] = Object.keys(dictionary)
     let result:string[] = dictArr.filter(name => key === name)
     console.log(result)
