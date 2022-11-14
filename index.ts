@@ -10,10 +10,11 @@ interface dictionary {
 }
 
 //this function has parameters that take an obj with specific types declared, and a string
-function doSearch(db:dictionary,key:string):string[] {
+function doSearch(db:dictionary,key:string):string {
     let dictArr = Object.keys(db)
-    let result = dictArr.filter(name => key === name)
-    console.log(result, db[result.toString()])
+    let result = dictArr.filter(name => key === name).toString()
+    let resultVal:string = db[result as keyof dictionary]
+    console.log(result, resultVal)
     return result
 }
 
@@ -66,9 +67,14 @@ nullFunc('hi');
 
 //CLASSES
 class Animal {
-    private bear: string;
-    private tiger: string;
+    //soft private
+    private bear: string = 'bear';
+    private tiger: string = 'tiger';
+    //true private var
+    #truePrivate:boolean = true;
+    //readonly
     readonly isStriped: boolean = true ;
+    //static. Can be read without instantiate
     static location: string = 'savanah';
 
     constructor() {
@@ -77,9 +83,7 @@ class Animal {
     }
 
    public setNumberofAnimals(number: number[]): number {
-        let reducer = number.reduce((prev,curr)=>{
-            return prev+curr
-        })
+        let reducer = number.reduce((prev,curr)=>prev+curr)
         return reducer;
    }
 }
@@ -87,4 +91,7 @@ class Animal {
 console.log(Animal.location)
 let myAnimals = new Animal()
 console.log(myAnimals.isStriped)
+//private is only for typescript checking, not applicable to runtime. You can still access it at runtime. Use #hashtag instead for hard private
+// console.log(myAnimals.tiger) => tiger
+// console.log(myAnimals.truePrivate) => undefined
 console.log(myAnimals.setNumberofAnimals([2,2,2,2,2]))
